@@ -47,7 +47,7 @@ export default function Home() {
                     Upload a CSV or Excel file to start inference.
                   </DialogDescription>
                 </DialogHeader>
-                <div className="flex h-32 w-full">
+                <div className="flex h-32 w-full rounded-lg border-2 border-dashed border-border hover:cursor-pointer hover:bg-accent">
                   <Upload />
                 </div>
                 {uploadedFile && (
