@@ -37,18 +37,17 @@ const Upload = () => {
   });
 
   return (
-    <div className="flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed transition-colors hover:cursor-pointer hover:bg-accent">
-      <div {...getRootProps()}>
-        <div className="flex h-full w-full flex-col items-center justify-center">
-          <div className="flex flex-col items-center justify-center">
-            <CloudUploadIcon size={20} />
-            <p className="text-sm text-muted-foreground">
-              {uploadedFile ? uploadedFile.name : "Upload your file"}
-            </p>
-          </div>
-          <Input {...getInputProps()} />
-        </div>
+    <div
+      {...getRootProps()}
+      className="flex h-full w-full items-center justify-center rounded-lg border-2 border-dashed transition-colors hover:cursor-pointer hover:bg-accent"
+    >
+      <div className="flex flex-col items-center justify-center">
+        <CloudUploadIcon size={20} />
+        <p className="text-sm text-muted-foreground">
+          {uploadedFile ? uploadedFile.name : "Upload your file"}
+        </p>
       </div>
+      <Input {...getInputProps()} />
     </div>
   );
 };

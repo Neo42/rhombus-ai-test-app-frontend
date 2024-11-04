@@ -23,7 +23,7 @@ import Upload from "@/features/upload/components/upload";
 import { useUploadedFile } from "@/features/upload/hooks/useUploadedFile";
 
 export default function Home() {
-  const { uploadedFile } = useStore(useUploadedFile);
+  const { uploadedFile, setUploadedFile } = useStore(useUploadedFile);
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
@@ -33,24 +33,32 @@ export default function Home() {
           <CardDescription>
             Infer your spreadsheet data types in one-click.
           </CardDescription>
-          <CardContent className="flex justify-center pb-4 pt-6">
+          <CardContent className="flex justify-center py-0 pt-2">
             <Dialog>
               <DialogTrigger asChild>
                 <Button className="rounded-full shadow" variant="outline">
-                  Upload File
+                  Try it out
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
+              <DialogContent className="sm:max-w-[400px]">
                 <DialogHeader>
                   <DialogTitle>Upload your files</DialogTitle>
                   <DialogDescription>
                     Upload a CSV or Excel file to start inference.
                   </DialogDescription>
                 </DialogHeader>
-                <Upload />
+                <div className="flex h-32 w-full">
+                  <Upload />
+                </div>
                 {uploadedFile && (
-                  <DialogFooter className="sm:justify-center">
-                    <Button>Continue</Button>
+                  <DialogFooter className="space-x-3">
+                    <Button
+                      variant="outline"
+                      onClick={() => setUploadedFile(null)}
+                    >
+                      Delete
+                    </Button>
+                    <Button>Upload and Infer</Button>
                   </DialogFooter>
                 )}
               </DialogContent>

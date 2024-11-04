@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 interface UploadStore {
   uploadedFile: UploadedFile | null;
 
-  setUploadedFile: (file: UploadedFile) => void;
+  setUploadedFile: (file: UploadedFile | null) => void;
 }
 
 export interface UploadedFile {
@@ -21,7 +21,11 @@ export const useUploadedFile = create(
     (set) => ({
       uploadedFile: null,
 
-      setUploadedFile: (file: UploadedFile) => {
+      setUploadedFile: (file: UploadedFile | null) => {
+        if (!file) {
+          set({ uploadedFile: null });
+          return;
+        }
         set({
           uploadedFile: {
             name: file.name,
