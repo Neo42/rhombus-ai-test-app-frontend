@@ -1,13 +1,13 @@
-import { create } from "zustand";
+import { create, useStore } from "zustand";
 
 interface ToggleDialogStore {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
-export const useToggleDialog = create<ToggleDialogStore>((set) => ({
+const toggleDialogStore = create<ToggleDialogStore>((set) => ({
   open: false,
-  setOpen: (open: boolean) => {
-    set({ open });
-  },
+  setOpen: (open: boolean) => set({ open }),
 }));
+
+export const useToggleDialog = () => useStore(toggleDialogStore);

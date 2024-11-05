@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create, useStore } from "zustand";
 
 interface FileStore {
   file: File | null;
@@ -6,8 +6,10 @@ interface FileStore {
   removeFile: () => void;
 }
 
-export const useFile = create<FileStore>((set) => ({
+const fileStore = create<FileStore>((set) => ({
   file: null,
   removeFile: () => set({ file: null }),
   setFile: (file: File) => set({ file: file }),
 }));
+
+export const useFile = () => useStore(fileStore);

@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { toast } from "sonner";
-import { useStore } from "zustand";
 
 import { uploadApi } from "@/features/upload/api/upload";
 import type { UploadResponse } from "@/features/upload/api/upload";
@@ -11,8 +10,8 @@ import type { APIError } from "@/lib/api-client";
 import { handleApiError } from "@/lib/error-handler";
 
 export const useUpload = () => {
-  const { setOpen } = useStore(useToggleDialog);
-  const { removeFile } = useStore(useFile);
+  const { setOpen } = useToggleDialog();
+  const { removeFile } = useFile();
   return useMutation<UploadResponse, APIError, File>({
     mutationFn: async (file) => {
       try {

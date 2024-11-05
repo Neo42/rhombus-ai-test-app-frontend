@@ -1,7 +1,5 @@
 "use client";
 
-import { useStore } from "zustand";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,8 +23,8 @@ import { useToggleDialog } from "@/features/upload/hooks/useToggleDialog";
 import { useUpload } from "@/features/upload/hooks/useUpload";
 
 export default function Home() {
-  const { file, removeFile } = useStore(useFile);
-  const { open, setOpen } = useStore(useToggleDialog);
+  const { file, removeFile } = useFile();
+  const { open, setOpen } = useToggleDialog();
   const { mutate: uploadFile } = useUpload();
 
   const handleUpload = () => {

@@ -5,14 +5,13 @@ import * as React from "react";
 import { useDropzone } from "react-dropzone";
 
 import { CloudUploadIcon } from "lucide-react";
-import { useStore } from "zustand";
 
 import { Input } from "@/components/ui/input";
 import { useFile } from "@/features/upload/hooks/useFile";
 import { useUpload } from "@/features/upload/hooks/useUpload";
 
 const Upload = () => {
-  const { file, setFile } = useStore(useFile);
+  const { file, setFile } = useFile();
   const { isPending, isError, error } = useUpload();
 
   const onDrop = React.useCallback(
