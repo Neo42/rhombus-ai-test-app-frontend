@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "config",
     "deps",
-    "upload"
+    "upload",
+    "ui"
   ]
 }
