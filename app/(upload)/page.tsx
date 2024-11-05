@@ -20,10 +20,23 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import Upload from "@/features/upload/components/upload";
-import { useUploadedFile } from "@/features/upload/hooks/useUploadedFile";
+import { useFile } from "@/features/upload/hooks/useFile";
+import { useToggleDialog } from "@/features/upload/hooks/useToggleDialog";
+import { useUpload } from "@/features/upload/hooks/useUpload";
 
 export default function Home() {
-  const { uploadedFile, setUploadedFile } = useStore(useUploadedFile);
+  const { file, removeFile } = useStore(useFile);
+  const { open, setOpen } = useStore(useToggleDialog);
+  const { mutate: uploadFile } = useUpload();
+
+  const handleUpload = () => {
+    if (file) uploadFile(file);
+  };
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open) removeFile();
+    setOpen(open);
+  };
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
@@ -31,10 +44,10 @@ export default function Home() {
         <CardHeader>
           <CardTitle>Infer.io</CardTitle>
           <CardDescription>
-            Infer your spreadsheet data types in one-click.
+            Infer your spreadsheet data types with ease
           </CardDescription>
           <CardContent className="flex justify-center py-0 pt-2">
-            <Dialog>
+            <Dialog open={open} onOpenChange={handleOpenChange}>
               <DialogTrigger asChild>
                 <Button className="rounded-full shadow" variant="outline">
                   Try it out
@@ -51,15 +64,14 @@ export default function Home() {
                   <Upload />
                 </div>
                 <DialogFooter className="space-x-3">
-                  {uploadedFile && (
-                    <Button
-                      variant="outline"
-                      onClick={() => setUploadedFile(null)}
-                    >
+                  {file && (
+                    <Button variant="outline" onClick={() => removeFile()}>
                       Delete
                     </Button>
                   )}
-                  <Button disabled={!uploadedFile}>Upload and Infer</Button>
+                  <Button onClick={handleUpload} disabled={!file}>
+                    Upload and Infer
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>

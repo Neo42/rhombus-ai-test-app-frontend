@@ -8,20 +8,19 @@ import { CloudUploadIcon } from "lucide-react";
 import { useStore } from "zustand";
 
 import { Input } from "@/components/ui/input";
-import {
-  UploadedFile,
-  useUploadedFile,
-} from "@/features/upload/hooks/useUploadedFile";
+import { useFile } from "@/features/upload/hooks/useFile";
+import { useUpload } from "@/features/upload/hooks/useUpload";
 
 const Upload = () => {
-  const { uploadedFile, setUploadedFile } = useStore(useUploadedFile);
+  const { file, setFile } = useStore(useFile);
+  const { isPending, isError, error } = useUpload();
 
   const onDrop = React.useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
-      setUploadedFile(file as unknown as UploadedFile);
+      setFile(file);
     },
-    [setUploadedFile],
+    [setFile],
   );
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -44,8 +43,16 @@ const Upload = () => {
       <div className="flex flex-col items-center justify-center">
         <CloudUploadIcon size={20} />
         <p className="text-sm text-muted-foreground">
-          {uploadedFile ? uploadedFile.name : "Upload your file"}
+          {file ? file.name : "Upload your file"}
         </p>
+        {isPending && (
+          <p className="text-sm text-muted-foreground">Uploading...</p>
+        )}
+        {isError && (
+          <p className="text-sm text-destructive">
+            {error.detail || "Upload failed"}
+          </p>
+        )}
       </div>
       <Input {...getInputProps()} />
     </div>
