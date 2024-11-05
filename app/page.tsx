@@ -50,17 +50,17 @@ export default function Home() {
                 <div className="flex h-32 w-full rounded-lg border-2 border-dashed border-border hover:cursor-pointer hover:bg-accent">
                   <Upload />
                 </div>
-                {uploadedFile && (
-                  <DialogFooter className="space-x-3">
+                <DialogFooter className="space-x-3">
+                  {uploadedFile && (
                     <Button
                       variant="outline"
                       onClick={() => setUploadedFile(null)}
                     >
                       Delete
                     </Button>
-                    <Button>Upload and Infer</Button>
-                  </DialogFooter>
-                )}
+                  )}
+                  <Button disabled={!uploadedFile}>Upload and Infer</Button>
+                </DialogFooter>
               </DialogContent>
             </Dialog>
           </CardContent>
