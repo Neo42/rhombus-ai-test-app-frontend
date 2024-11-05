@@ -14,7 +14,6 @@
       "error",
       {
         "allowSameFolder": false,
-        "rootDir": "frontend",
         "prefix": "@"
       }
     ],
