@@ -1,6 +1,9 @@
 "use client";
 
+import * as React from "react";
+
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +22,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { DataTable } from "@/features/inference/components/data-table";
 import { UploadDropzone } from "@/features/inference/components/upload-dropzone";
 import { useFile } from "@/features/inference/hooks/use-file";
 import { useFileData } from "@/features/inference/hooks/use-file-data";
@@ -27,9 +31,10 @@ import { useUpload } from "@/features/inference/hooks/use-upload";
 
 export default function Home() {
   const { file, removeFile } = useFile();
-  const { open, setOpen } = useToggleDialog();
+  const { isUploadDialogOpen, setIsUploadDialogOpen } = useToggleDialog();
   const { mutate: uploadFile } = useUpload();
   const { data: fileData, isLoading } = useFileData();
+  const [hasNotified, setHasNotified] = React.useState(false);
 
   const handleUpload = () => {
     if (file) uploadFile(file);
@@ -37,13 +42,23 @@ export default function Home() {
 
   const handleOpenChange = (open: boolean) => {
     if (!open) removeFile();
-    console.log(open);
-    setOpen(open);
+    setIsUploadDialogOpen(open);
   };
+
+  if (fileData?.processing_status === "INFERENCE_FAILED" && !hasNotified) {
+    toast.error(`Processing failed: ${fileData.error_message}`);
+    setHasNotified(true);
+  }
+  if (fileData?.processing_status === "INFERRED" && !hasNotified) {
+    toast.success("File processing completed!");
+    setHasNotified(true);
+  }
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
-      {isLoading || fileData?.processing_status === "INFERRING" ? (
+      {isLoading ||
+      fileData?.processing_status === "INFERRING" ||
+      fileData?.processing_status === "UPLOADING" ? (
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <p>Processing your file...</p>
@@ -53,7 +68,9 @@ export default function Home() {
             This would take up to 30 seconds for a very large file.
           </p>
         </div>
-      ) : (
+      ) : null}
+
+      {fileData === undefined ? (
         <Card>
           <CardHeader>
             <CardTitle>Infer.io</CardTitle>
@@ -61,7 +78,7 @@ export default function Home() {
               Infer your spreadsheet data types with ease
             </CardDescription>
             <CardContent className="flex justify-center py-0 pt-2">
-              <Dialog open={open} onOpenChange={handleOpenChange}>
+              <Dialog open={isUploadDialogOpen} onOpenChange={handleOpenChange}>
                 <DialogTrigger asChild>
                   <Button className="rounded-full shadow" variant="outline">
                     Try it out
@@ -92,7 +109,9 @@ export default function Home() {
             </CardContent>
           </CardHeader>
         </Card>
-      )}
+      ) : null}
+
+      {fileData?.processing_status === "INFERRED" ? <DataTable /> : null}
     </div>
   );
 }
