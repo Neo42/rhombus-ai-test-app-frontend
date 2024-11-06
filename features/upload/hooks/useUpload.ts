@@ -2,20 +2,19 @@ import { useMutation } from "@tanstack/react-query";
 
 import { toast } from "sonner";
 
-import { uploadApi } from "@/features/upload/api/upload";
-import type { UploadResponse } from "@/features/upload/api/upload";
 import { useFile } from "@/features/upload/hooks/useFile";
 import { useToggleDialog } from "@/features/upload/hooks/useToggleDialog";
+import { uploadFile, type UploadResponse } from "@/lib/api";
 import type { APIError } from "@/lib/api-client";
 import { handleApiError } from "@/lib/error-handler";
 
 export const useUpload = () => {
+  const { setFileId, removeFile } = useFile();
   const { setOpen } = useToggleDialog();
-  const { removeFile } = useFile();
   return useMutation<UploadResponse, APIError, File>({
     mutationFn: async (file) => {
       try {
-        return await uploadApi.uploadFile(file);
+        return await uploadFile(file);
       } catch (error) {
         return handleApiError(error);
       }
@@ -23,10 +22,11 @@ export const useUpload = () => {
     onError: (error) => {
       toast.error(error.detail);
     },
-    onSuccess: (_data, file) => {
-      toast.success(`${file.name} uploaded successfully.`);
+    onSuccess: (data, file) => {
       setOpen(false);
       removeFile();
+      setFileId(data.file_id);
+      toast.success(`${file.name} uploaded successfully.`);
     },
   });
 };

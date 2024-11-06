@@ -42,7 +42,7 @@ const Upload = () => {
       <div className="flex flex-col items-center justify-center">
         <CloudUploadIcon size={20} />
         <p className="text-sm text-muted-foreground">
-          {file ? file.name : "Upload your file"}
+          {file ? file.name : "Click or drag and drop your file here"}
         </p>
         {isPending && (
           <p className="text-sm text-muted-foreground">Uploading...</p>
