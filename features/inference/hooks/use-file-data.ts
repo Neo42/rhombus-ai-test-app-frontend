@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { toast } from "sonner";
 
-import { useFile } from "@/features/upload/hooks/useFile";
+import { useFile } from "@/features/inference/hooks/use-file";
 import { getFileData, type FileDataResponse } from "@/lib/api";
 import type { APIError } from "@/lib/api-client";
 import { handleApiError } from "@/lib/error-handler";

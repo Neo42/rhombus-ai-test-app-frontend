@@ -7,10 +7,10 @@ import { useDropzone } from "react-dropzone";
 import { CloudUploadIcon } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
-import { useFile } from "@/features/upload/hooks/useFile";
-import { useUpload } from "@/features/upload/hooks/useUpload";
+import { useFile } from "@/features/inference/hooks/use-file";
+import { useUpload } from "@/features/inference/hooks/use-upload";
 
-const Upload = () => {
+export const UploadDropzone = () => {
   const { file, setFile } = useFile();
   const { isPending, isError, error } = useUpload();
 
@@ -57,5 +57,3 @@ const Upload = () => {
     </div>
   );
 };
-
-export default Upload;

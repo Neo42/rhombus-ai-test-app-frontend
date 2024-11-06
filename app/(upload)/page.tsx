@@ -19,17 +19,17 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import Upload from "@/features/upload/components/upload";
-import { useFile } from "@/features/upload/hooks/useFile";
-import { useFileData } from "@/features/upload/hooks/useFileData";
-import { useToggleDialog } from "@/features/upload/hooks/useToggleDialog";
-import { useUpload } from "@/features/upload/hooks/useUpload";
+import { UploadDropzone } from "@/features/inference/components/upload-dropzone";
+import { useFile } from "@/features/inference/hooks/use-file";
+import { useFileData } from "@/features/inference/hooks/use-file-data";
+import { useToggleDialog } from "@/features/inference/hooks/use-toggle-dialog";
+import { useUpload } from "@/features/inference/hooks/use-upload";
 
 export default function Home() {
   const { file, removeFile } = useFile();
   const { open, setOpen } = useToggleDialog();
   const { mutate: uploadFile } = useUpload();
-  const { data: fileData, isLoading: isFileDataLoading } = useFileData();
+  const { data: fileData, isLoading } = useFileData();
 
   const handleUpload = () => {
     if (file) uploadFile(file);
@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
-      {isFileDataLoading || fileData?.processing_status === "INFERRING" ? (
+      {isLoading || fileData?.processing_status === "INFERRING" ? (
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <p>Processing your file...</p>
@@ -75,7 +75,7 @@ export default function Home() {
                     </DialogDescription>
                   </DialogHeader>
                   <div className="flex h-32 w-full rounded-lg border-2 border-dashed border-border transition-colors hover:cursor-pointer hover:bg-accent">
-                    <Upload />
+                    <UploadDropzone />
                   </div>
                   <DialogFooter className="space-x-3">
                     {file && (
