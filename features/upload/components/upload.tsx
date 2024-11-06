@@ -37,7 +37,7 @@ const Upload = () => {
   return (
     <div
       {...getRootProps()}
-      className="flex h-full w-full items-center justify-center rounded-lg transition-colors"
+      className="flex h-full w-full items-center justify-center rounded-lg"
     >
       <div className="flex flex-col items-center justify-center">
         <CloudUploadIcon size={20} />
