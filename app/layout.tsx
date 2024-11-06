@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 
 import "@/app/globals.css";
 import QueryProvider from "@/components/providers/query-provider";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
+import { geistSans } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Infer.io",
