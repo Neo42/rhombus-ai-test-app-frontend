@@ -1,17 +1,14 @@
-import * as React from "react";
-
 import { useQuery } from "@tanstack/react-query";
 
-import { toast } from "sonner";
-
+import {
+  FileDataResponse,
+  getFileData,
+} from "@/features/inference/api/get-file-data";
 import { useFile } from "@/features/inference/hooks/use-file";
-import { getFileData, type FileDataResponse } from "@/lib/api";
 import type { APIError } from "@/lib/api-client";
 import { handleApiError } from "@/lib/error-handler";
 
 export const useFileData = () => {
-  const [hasNotified, setHasNotified] = React.useState(false);
-  const [prevFileId, setPrevFileId] = React.useState<number | null>(null);
   const { fileId } = useFile();
 
   return useQuery<FileDataResponse, APIError>({
@@ -27,32 +24,11 @@ export const useFileData = () => {
     enabled: !!fileId,
     refetchInterval: ({ state: { data } }) => {
       if (!data) return false;
-      switch (data.processing_status) {
-        case "INFERRING":
-          return 1000;
-        case "UPLOADING":
-          return 1000;
-        case "INFERRED":
-          if (!hasNotified || prevFileId !== fileId) {
-            toast.success("File processing completed!");
-            setHasNotified(true);
-            setPrevFileId(fileId);
-          }
-          return false;
-        case "FAILED":
-          if (!hasNotified || prevFileId !== fileId) {
-            toast.error(`Processing failed: ${data.error_message}`);
-            setHasNotified(true);
-            setPrevFileId(fileId);
-          }
-          return false;
-        default:
-          return false;
-      }
+      return ["UPLOADING", "INFERRING"].includes(data.processing_status)
+        ? 1000
+        : false;
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    retry: 3,
-    retryDelay: 1000,
   });
 };
