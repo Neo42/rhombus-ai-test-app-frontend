@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Infer.io - Data Type Inference Tool
+
+An web app that helps users infer and customize data types from CSV and Excel files.
+
+## Features
+
+- 📤 Drag & drop file upload (CSV, XLSX, XLS)
+- 📊 Automatic data type inference
+- 🔄 Polling for processing status
+- ✏️ Custom data type overrides with validation
+- 📋 Sample data preview
+
+## Tech Stack
+
+### Core
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Components**: shadcn/ui
+- **State Management**: Zustand, TanStack Query
+- **Form Validation**: Zod
+- **File Upload**: react-dropzone
+- **Toast**: sonner
+
+### Configuration
+
+- **Package Manager**: pnpm
+- **Linter**: ESLint
+- **Formatter**: Prettier
+- **Git Hooks**: Husky, lint-staged
+- **Commit Convention**: commitlint
+- **Component Config**: shadcn/ui
+- **Path Aliases**: TypeScript paths
+
+## Project Structure
+
+```
+
+src/
+├── app/
+│ └── (upload)/ # Upload page route
+├── components/
+│ ├── providers/ # App providers
+│ └── ui/ # Reusable UI components
+├── features/
+│ └── inference/ # Data inference feature
+│ ├── api/ # API integration
+│ ├── components/ # Feature-specific components
+│ ├── hooks/ # Custom hooks
+│ └── validations/ # Zod schemas for validation
+└── lib/ # Utility functions
+
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- pnpm
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/infer.io.git
+cd infer.io
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Create a `.env.local` file:
 
-## Learn More
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Start the development server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The app will be available at `http://localhost:3000`
 
-## Deploy on Vercel
+## Key Components
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### UploadDropzone
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Handles file upload with drag & drop support and file type validation
+
+### DataTable
+
+Displays sample data with inferred types and allows type customization
+
+### CustomDataTypeDialog
+
+Modal for editing column data types with validation
+
+## State Management
+
+The application uses a combination of Zustand stores for client state:
+
+- `useFile`: Manages uploaded file state
+- `useCustomType`: Handles custom type editing
+- `useToggleDialog`: Controls dialog visibility
+
+TanStack Query is used for server state management and data fetching:
+
+- `useFileData`: Fetches and polls file processing status
+- `useUpload`: Handles file upload mutation
+- `useUpdateCustomType`: Manages custom type updates
+
+## API Integration
+
+The app communicates with a backend API for:
+
+- File upload
+- Data type inference
+- Custom type overrides
+- Sample data retrieval
+
+## Limitations
+
+- Didn't implement display of all data
