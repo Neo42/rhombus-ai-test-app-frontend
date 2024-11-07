@@ -14,7 +14,7 @@ An web app that helps users infer and customize data types from CSV and Excel fi
 
 ### Core
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Components**: shadcn/ui
@@ -30,27 +30,23 @@ An web app that helps users infer and customize data types from CSV and Excel fi
 - **Formatter**: Prettier
 - **Git Hooks**: Husky, lint-staged
 - **Commit Convention**: commitlint
-- **Component Config**: shadcn/ui
-- **Path Aliases**: TypeScript paths
 
 ## Project Structure
 
 ```
-
-src/
+/
 ├── app/
-│ └── (upload)/ # Upload page route
+│   └── (upload)/           # Upload page route
 ├── components/
-│ ├── providers/ # App providers
-│ └── ui/ # Reusable UI components
+│   ├── providers/          # App providers
+│   └── ui/                 # Reusable UI components
 ├── features/
-│ └── inference/ # Data inference feature
-│ ├── api/ # API integration
-│ ├── components/ # Feature-specific components
-│ ├── hooks/ # Custom hooks
-│ └── validations/ # Zod schemas for validation
-└── lib/ # Utility functions
-
+│   └── inference/          # Data inference feature
+│       ├── api/            # API integration
+│       ├── components/     # Feature-specific components
+│       ├── hooks/          # Custom hooks
+│       └── validations/    # Zod schemas for validation
+└── lib/                    # Utility functions
 ```
 
 ## Getting Started
