@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "sonner";
-import { z, ZodError } from "zod";
+import { ZodError } from "zod";
 
 import {
   updateColumnType,
@@ -11,15 +11,9 @@ import {
 import { useCustomType } from "@/features/inference/hooks/use-custom-type";
 import { useFile } from "@/features/inference/hooks/use-file";
 import { useToggleDialog } from "@/features/inference/hooks/use-toggle-dialog";
+import { customTypeSchema } from "@/features/inference/validations/custom-type-schema";
 import type { APIError } from "@/lib/api-client";
 import { handleApiError } from "@/lib/error-handler";
-
-const customTypeSchema = z.object({
-  customType: z
-    .string()
-    .min(1, "Custom type must be provided")
-    .regex(/^[a-zA-Z]/, "Custom type must start with a letter"),
-});
 
 export const useUpdateCustomType = () => {
   const { setIsCustomTypeDialogOpen } = useToggleDialog();
