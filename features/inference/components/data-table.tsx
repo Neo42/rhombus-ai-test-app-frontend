@@ -110,54 +110,60 @@ export const DataTable = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              {table.getHeaderGroups()[0].headers.map((header) => (
-                <TableHead key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                </TableHead>
-              ))}
-            </TableRow>
-            <TableRow>
-              {table.getHeaderGroups()[0].headers.map((header) => (
-                <TableHead key={`${header.id}-type`} className="border-t">
-                  <CustomDataTypeDialog>
-                    <Button
-                      variant="ghost"
-                      className="w-full text-xs"
-                      onClick={() => {
-                        setCustomType(
-                          (header.column.columnDef.meta as ColumnMeta).dataType,
-                        );
-                        setColumnName(header.id);
-                      }}
-                    >
-                      {(header.column.columnDef.meta as ColumnMeta).dataType ||
-                        "-"}
-                    </Button>
-                  </CustomDataTypeDialog>
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                {table.getHeaderGroups()[0].headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableHead>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+              <TableRow>
+                {table.getHeaderGroups()[0].headers.map((header) => (
+                  <TableHead key={`${header.id}-type`} className="border-t">
+                    <CustomDataTypeDialog>
+                      <Button
+                        variant="ghost"
+                        className="w-full text-xs"
+                        onClick={() => {
+                          setCustomType(
+                            (header.column.columnDef.meta as ColumnMeta)
+                              .dataType,
+                          );
+                          setColumnName(header.id);
+                        }}
+                      >
+                        {(header.column.columnDef.meta as ColumnMeta)
+                          .dataType || "-"}
+                      </Button>
+                    </CustomDataTypeDialog>
+                  </TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   );
