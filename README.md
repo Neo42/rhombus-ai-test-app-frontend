@@ -56,13 +56,19 @@ An web app that helps users infer and customize data types from CSV and Excel fi
 - Node.js 18+
 - pnpm
 
+```bash
+npm install -g pnpm
+```
+
+- Make sure you have the [backend API](https://github.com/neo42/rhombus-ai-test-app-backend/) running at `http://localhost:8000/api`
+
 ### Installation
 
-1. Clone the repository:
+1. Clone the repository and `cd` into it:
 
 ```bash
-git clone https://github.com/yourusername/infer.io.git
-cd infer.io
+git clone https://github.com/neo42/rhombus-ai-test-app-frontend.git
+cd rhombus-ai-test-app-frontend
 ```
 
 2. Install dependencies:
@@ -71,7 +77,7 @@ cd infer.io
 pnpm install
 ```
 
-3. Create a `.env.local` file:
+3. Create a `.env.local` file at the root of the project:
 
 ```bash
 NEXT_PUBLIC_API_URL=http://localhost:8000/api
@@ -122,6 +128,7 @@ The app communicates with a backend API for:
 - Custom type overrides
 - Sample data retrieval
 
-## Limitations
+## Future Improvements
 
-- Didn't implement display of all data
+- Display all data
+- Add more tests
