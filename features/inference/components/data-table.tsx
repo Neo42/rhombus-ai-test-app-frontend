@@ -31,7 +31,7 @@ import { useFileData } from "@/features/inference/hooks/use-file-data";
 
 const dataTypeMap = {
   bool: "True/False",
-  object: "Text",
+  string: "Text",
   int64: "Integer",
   float64: "Decimal Number",
   category: "Category",
@@ -62,13 +62,17 @@ export const DataTable = () => {
         meta: {
           dataType:
             dataTypeMap[
-              data.effective_types[key] as keyof typeof dataTypeMap
+              data.effective_types[
+                key
+              ].toLowerCase() as keyof typeof dataTypeMap
             ] ?? data.overridden_types?.[key],
         } satisfies ColumnMeta,
         cell: (info) => {
           const value = info.getValue();
-          if (value === "nan") return "-";
-          return <div className="text-center text-sm">{value}</div>;
+          const isNaN = value === "nan" || value === "None";
+          return (
+            <div className="text-center text-sm">{isNaN ? "-" : value}</div>
+          );
         },
       });
     });

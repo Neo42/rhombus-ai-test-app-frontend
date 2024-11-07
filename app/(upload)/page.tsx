@@ -55,7 +55,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
+    <div className="flex h-screen w-screen flex-col items-center justify-center px-20">
       {isLoading ||
       fileData?.processing_status === "INFERRING" ||
       fileData?.processing_status === "UPLOADING" ? (
@@ -65,7 +65,7 @@ export default function Home() {
             <Loader2 className="animate-spin" size={16} />
           </div>
           <p className="text-sm text-muted-foreground">
-            This would take up to 30 seconds for a very large file.
+            This may take 30 seconds or more for a very large file.
           </p>
         </div>
       ) : null}
