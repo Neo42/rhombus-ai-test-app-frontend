@@ -5,7 +5,7 @@ import QueryProvider from "@/components/providers/query-provider";
 import { geistSans } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-  title: "Infer.io",
+  title: "infer.io",
   description: "Infer your spreadsheet data types with ease",
 };
 
