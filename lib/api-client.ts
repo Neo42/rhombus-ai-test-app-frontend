@@ -6,7 +6,7 @@ export interface APIError {
 }
 
 export const apiClient = ky.create({
-  prefixUrl: "http://localhost:8000/api",
+  prefixUrl: process.env.NEXT_PUBLIC_API_URL,
   credentials: "include",
   mode: "cors",
   hooks: {
