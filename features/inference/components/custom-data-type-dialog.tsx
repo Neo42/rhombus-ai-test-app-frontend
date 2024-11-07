@@ -41,17 +41,17 @@ export function CustomDataTypeDialog({ children }: CustomDataTypeDialogProps) {
   return (
     <Dialog open={isCustomTypeDialogOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[300px]">
+      <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>Edit Column Type</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+            <Label htmlFor="column-type" className="text-right">
               Column Type
             </Label>
             <Input
-              id="name"
+              id="column-type"
               value={customType}
               className="col-span-3"
               onChange={(e) => setCustomType(e.target.value)}
