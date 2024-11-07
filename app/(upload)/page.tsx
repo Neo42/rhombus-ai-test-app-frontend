@@ -50,7 +50,7 @@ export default function Home() {
     setHasNotified(true);
   }
   if (fileData?.processing_status === "INFERRED" && !hasNotified) {
-    toast.success("File processing completed!");
+    toast.success(`Inference for ${fileData.original_filename} completed.`);
     setHasNotified(true);
   }
 
